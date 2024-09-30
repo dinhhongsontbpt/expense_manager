@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Liên kết với file CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Sử dụng jQuery -->
+</head>
+<body>
+    <div class="container">
+        <h1>Personal Expense Manager</h1>
+        
+        <!-- Form thêm chi tiêu mới -->
+        <form>
+            <div>
+                <label for="category">Category</label>
+                <input type="text" id="category" required>
+            </div>
+            <div>
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" required>
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <input type="text" id="description" required>
+            </div>
+            <div>
+                <label for="date">Date</label>
+                <input type="date" id="date" required>
+            </div>
+            <div>
+                <label for="payment_method">Payment Method</label>
+                <input type="text" id="payment_method" required>
+            </div>
+            <div>
+                <label for="tags">Tags (comma-separated)</label>
+                <input type="text" id="tags">
+            </div>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <!-- Hiển thị danh sách chi tiêu -->
+        <h2>Expense List</h2>
+        <ul>
+            <% if (expenses.length > 0) { %>
+                <% expenses.forEach(expense => { %>
+                    <li>
+                        <strong><%= expense.category %></strong> - $<%= expense.amount %>
+                        <br>
+                        <small><%= expense.description %></small>
+                        <br>
+                        <em>Date: <%= expense.date %></em>
+                        <br>
+                        <em>Payment Method: <%= expense.payment_method %></em>
+                        <br>
+                        <em>Tags: <%= expense.tags.join(', ') %></em>
+                    </li>
+                <% }) %>
+            <% } else { %>
+                <li>No expenses found.</li>
+            <% } %>
+        </ul>
+    </div>
+
+    <script src="/js/script.js"></script> <!-- Liên kết với file script.js -->
+</body>
+</html>
