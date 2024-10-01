@@ -3,24 +3,31 @@ const Expense = require('../models/Expense');
 // Lấy tất cả chi tiêu
 const getExpenses = async (req, res) => {
     try {
-        const expenses = await Expense.find();
+        // Sắp xếp theo ngày giảm dần (newest to oldest)
+        const expenses = await Expense.find().sort({ date: -1 }); // Sắp xếp theo trường date
         res.status(200).json(expenses);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
+
 // Thêm chi tiêu mới
 const addExpense = async (req, res) => {
-    const { category, amount, description, date, payment_method, tags } = req.body;
+    const { category, amount, description, date, payment_method, type } = req.body;
+
+    // Lấy giờ hiện tại
+    const currentDate = new Date(date);
+    const currentTime = new Date(); // Thời gian hiện tại
+    currentDate.setHours(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds()); // Kết hợp giờ, phút, giây từ hiện tại
 
     const expense = new Expense({
         category,
         amount,
         description,
-        date,
+        date: currentDate,
         payment_method,
-        tags,
+        type, // Lưu type vào cơ sở dữ liệu
     });
 
     try {

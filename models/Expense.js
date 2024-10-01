@@ -1,4 +1,3 @@
-// models/Expense.js
 const mongoose = require('mongoose');
 
 const ExpenseSchema = new mongoose.Schema({
@@ -15,7 +14,7 @@ const ExpenseSchema = new mongoose.Schema({
         required: true,
     },
     date: {
-        type: String,
+        type: Date,
         required: true,
     },
     payment_method: {
@@ -26,6 +25,11 @@ const ExpenseSchema = new mongoose.Schema({
         type: [String], // Mảng chứa các thẻ
         default: [],
     },
+    type: { // Thêm thuộc tính type
+        type: String,
+        enum: ['income', 'expense'], // Chỉ cho phép hai giá trị
+        required: true,
+    }
 }, {
     timestamps: true, // Tự động thêm các trường createdAt và updatedAt
 });

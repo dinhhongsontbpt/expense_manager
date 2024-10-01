@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false })); // Để phân tích dữ li�
 // Route chính cho trang index
 app.get('/', async (req, res) => {
     try {
-        const expenses = await Expense.find(); // Lấy tất cả chi tiêu từ MongoDB
+        const expenses = await Expense.find().sort({ date: -1 }); // Lấy tất cả chi tiêu từ MongoDB
         res.render('index', { expenses }); // Render trang index.ejs với danh sách chi tiêu
     } catch (error) {
         res.status(500).json({ message: error.message });
