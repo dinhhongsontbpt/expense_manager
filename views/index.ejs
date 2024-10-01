@@ -15,7 +15,14 @@
         <form>
             <div>
                 <label for="category">Category</label>
-                <input type="text" id="category" required>
+                <select id="category" required>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Health">Health</option>
+                    <option value="Education">Education</option>
+                    <!-- Thêm các tùy chọn khác -->
+                </select>
             </div>
             <div>
                 <label for="amount">Amount</label>
@@ -31,21 +38,23 @@
             </div>
             <div>
                 <label for="payment_method">Payment Method</label>
-                <input type="text" id="payment_method" required>
-            </div>
-            <div>
-                <label for="tags">Tags (comma-separated)</label>
-                <input type="text" id="tags">
+                <select id="payment_method" required>
+                    <option value="Cash">Cash</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <!-- Thêm các tùy chọn khác -->
+                </select>
             </div>
             <button type="submit">Add Expense</button>
         </form>
 
         <!-- Hiển thị danh sách chi tiêu -->
         <h2>Expense List</h2>
-        <ul>
+        <ul id="expense-list">
             <% if (expenses.length > 0) { %>
                 <% expenses.forEach(expense => { %>
-                    <li>
+                    <li data-id="<%= expense.id %>">
                         <strong><%= expense.category %></strong> - $<%= expense.amount %>
                         <br>
                         <small><%= expense.description %></small>
@@ -54,7 +63,7 @@
                         <br>
                         <em>Payment Method: <%= expense.payment_method %></em>
                         <br>
-                        <em>Tags: <%= expense.tags.join(', ') %></em>
+                        <button class="delete-expense">Delete</button> <!-- Nút Xóa -->
                     </li>
                 <% }) %>
             <% } else { %>
@@ -62,6 +71,14 @@
             <% } %>
         </ul>
     </div>
+
+    <script>
+        // Tự động chọn ngày hiện tại cho trường 'date'
+        $(document).ready(function(){
+            let today = new Date().toISOString().substr(0, 10);
+            $('#date').val(today);
+        });
+    </script>
 
     <script src="/js/script.js"></script> <!-- Liên kết với file script.js -->
 </body>

@@ -34,7 +34,7 @@ const addExpense = async (req, res) => {
 // Xóa chi tiêu theo ID
 const deleteExpense = async (req, res) => {
     try {
-        const removedExpense = await Expense.findByIdAndRemove(req.params.id);
+        const removedExpense = await Expense.findByIdAndDelete(req.params.id); // Sử dụng findByIdAndDelete
         if (!removedExpense) return res.status(404).json({ message: 'Expense not found' });
         res.status(200).json(removedExpense);
     } catch (error) {
